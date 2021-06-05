@@ -1,3 +1,20 @@
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+let getRequest = (url, cb) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status !== 200) {
+                console.log('Error!');
+            } else {
+                cb(xhr.responseText);
+            }
+        }
+    };
+    xhr.send();
+};
+
 class ProductList {
     _goods;
     _allProducts;
@@ -6,32 +23,27 @@ class ProductList {
         this._goods = [];
         this._allProducts = [];
 
-        this._fetchGoods();
-        this._render();
+        this._getProducts()
+            .then((data) => {
+                this._goods;
+                this._render;
+            })
+
+        // this._fetchGoods();
+        // this._render();
     }
 
-    _fetchGoods() {
-        this._goods = [{
-                id: 1,
-                title: 'Notebook',
-                price: 20000
-            },
-            {
-                id: 2,
-                title: 'Mouse',
-                price: 1500
-            },
-            {
-                id: 3,
-                title: 'Keyboard',
-                price: 5000
-            },
-            {
-                id: 4,
-                title: 'Gamepad',
-                price: 4500
-            },
-        ];
+    // _fetchGoods() {
+    //     getRequest(`${API}/catalogData.json`, (data) => {
+    //         this._goods = JSON.parse(data);
+    //         this._render();
+    //     });
+    // }
+
+    _getProducts() {
+        return fetch(`${API}/catalogData.json`)
+            .then((response) => response.json())
+            .catch((err) => console.log(err));
     }
 
     totalPrice() {
