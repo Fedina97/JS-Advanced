@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Собери свой бургер</h1>
+    <form action="#">
+        <div>
+            <h3>Выберите размер бургера: </h3>
+            <label><input type="radio" name="size" data-price="50" data-calories="20">Маленький</label>
+            <label><input type="radio" name="size" data-price="100" data-calories="40">Большой</label>
+        </div>
+        <div>
+            <h3>Выберите дополнительные топпинги: </h3>
+            <label><input type="radio" name="topping" data-price="20" data-calories="5">Салат</label>
+            <label><input type="radio" name="topping" data-price="10" data-calories="20">Сыр</label>
+            <label><input type="radio" name="topping" data-price="15" data-calories="10">Картофель</label>
+        </div>
+        <div>
+            <h3>Выберите добавку: </h3>
+            <label>
+                <input type="checkbox" name="sause" data-price="50" data-calories="0">
+                Майонез
+            </label>
+            <label>
+                <input type="checkbox" name="sause" data-price="15" data-calories="5">
+                Приправа
+            </label>
+        </div>
+        <button type="submit">Рассчитать</button>
+    </form>
+    <div class="count">
+        <h3>Итого:</h3>
+        <p class="costed"></p>
+        <p class="calories"></p>
+    </div>
+    <script src="./script.js"></script>
+    <script>
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const ham = new Hamburger('size', 'topping', 'sause');
+            console.log(ham);
+        });
+    </script>
+</body>
+
+</html>
