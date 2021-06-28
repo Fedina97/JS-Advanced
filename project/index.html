@@ -10,6 +10,46 @@
 </head>
 
 <body>
+
+    <div id="app">
+        <header>
+            <div class="logo">Интернет-магазин</div>
+            <div class="cart">
+                <form action="#" class="search-form" @submit.prevent="filterGoods">
+                    <input type="text" class="search-field" v-model="searchLine">
+                    <button class="btn-search" type="submit" @click="filterGoods">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <button class="btn-cart" type="button" @click="isVisibleCart = !isVisibleCart">Корзина</button>
+                <div class="cart-block" :class="{visible: !isVisibleCart, invisible: isVisibleCart}">
+                    <h3 v-show="cartItem.length === 0">Корзина пуста</h3>
+                    <div class="cart-item" v-for="product of cartItem">
+                        <img :src="img" alt="">
+                        <h3>{{ product.product_name }}</h3>
+                        <p>{{ product.price }} ₽</p>
+                        <p>{{ product.quantity }}</p>
+                        <p>{{ product.price * product.quantity}}</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="products">
+                <div class="product-item" v-for="product of filtered" :key="product.id_product">
+                    <img :src="img" alt="Some img">
+                    <div class="desc">
+                        <h3>{{ product.product_name }}</h3>
+                        <p>{{ product.price }} ₽</p>
+                        <button class="buy-btn" @click="addProduct(product)" data-id="${this.id_product}"
+                            data-name="${this.product_name}" data-price="${this.price}">Купить</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
     <header>
         <div class="logo">Интернет-магазин</div>
         <div class="cart">
