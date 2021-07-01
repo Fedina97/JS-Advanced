@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .input-form {
+            border: 2px solid rgb(138, 136, 136);
+            padding: 15px 20px;
+            width: 300px;
+            margin-top: 10px;
+            border-radius: 15px;
+            outline: none;
+        }
+
+        .input-form.error {
+            border-color: red;
+        }
+
+        button {
+            background-color: brown;
+            color: wheat;
+            border-radius: 15px;
+            cursor: pointer;
+            padding: 10px 25px;
+        }
+
+        .form.error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#">
+        <div class="form-group">
+            <label for="name">Имя *</label><br>
+            <input class="input-form" type="text" name="name" id="name">
+        </div>
+        <div class="form-group">
+            <label for="phone-number">Телефон *</label><br>
+            <input class="input-form" type="text" name="phone" id="phone-number">
+        </div>
+        <div class="form-group">
+            <label for="email">Email *</label><br>
+            <input class="input-form" type="email" name="email" id="email">
+        </div>
+        <div class="form-group">
+            <label for="message">Сообщение</label><br>
+            <textarea class="input-form" name="text" id="message" cols="30" rows="10"></textarea>
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        'use strict';
+        const form = document.querySelector('form');
+        form.addEventListener('submit', formValidate);
+
+        function formValidate(e) {
+            e.preventDefault();
+
+            let mist = document.querySelectorAll('.error');
+            mist.forEach(el => {
+                el.classList.remove('error');
+                el.nextElementSibling.remove();
+            });
+
+            let name = document.getElementById('name');
+            let phone = document.getElementById('phone-number');
+            let email = document.getElementById('email');
+
+            let nameVal = name.value;
+            let phoneVal = phone.value;
+            let mailVal = email.value;
+
+            let validName = /^[a-zа-яё]+$/ig.test(nameVal);
+            if (!validName && !name.classList.contains('error')) {
+                name.classList.add('error');
+                name.insertAdjacentHTML('afterend', `<div class="form-error">Поле должно содержать буквы</div>`);
+            }
+            let validPhone = /\+7\(\d{3}\)\d{3}\-\d{4}/.test(phoneVal);
+            if (!validPhone && !phone.classList.contains('error')) {
+                phone.classList.add('error');
+                phone.insertAdjacentHTML('afterend',
+                    `<div class="form-error">Телефон должен иметь вид +7(000)000-0000</div>`);
+            }
+            let validEmail = /([\w\.-]+)@(\w+)\.\w{2,4}/i.test(mailVal);
+            if (!validEmail && !email.classList.contains('error')) {
+                email.classList.add('error');
+                email.insertAdjacentHTML('afterend',
+                    `<div class="form-error">E-mail должен иметь вид<br> mymail@mail.ru<br>my.mail@mail.ru<br>my-mail@mail.ru<br></div>`
+                );
+            }
+        }
+
+
+        let changeText = `
+        One: 'Hi Mary.' 
+        Two: 'Oh, hi.'
+        One: 'How are you doing?'
+        Two: 'I'm doing alright. How about you?'
+        One: 'Not too bad. The weather is great isn't it?'
+        Two: 'Yes. It's absolutely beautiful today.'
+        One: 'I wish it was like this more frequently.'
+        Two: 'Me too.'
+        One: 'So where are you going now?'
+        Two: 'I'm going to meet a friend of mine at the department store.'
+        One: 'Going to do a little shopping?'
+        Two: 'Yeah, I have to buy some presents for my parents.'
+        One: 'What's the occasion?'
+        Two: 'It's their anniversary.'
+        One: 'That's great. Well, you better get going. You don't want to be late.'
+        Two: 'I'll see you next time.'
+        One: 'Sure.' Bye.'`;
+
+        console.log(changeText.replace(/\B'/g, '"'));
+    </script>
+</body>
+
+</html>
